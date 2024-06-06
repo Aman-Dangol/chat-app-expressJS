@@ -7,6 +7,8 @@ const io = new socket.Server(server);
 
 app.set("view engine", "ejs");
 
+app.use("/public", express.static("./public"));
+
 io.on("connection", (socket) => {
   console.log(socket.id);
 });
