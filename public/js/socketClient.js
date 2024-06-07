@@ -4,7 +4,9 @@ const socket = io();
 // getting a form
 let form = document.getElementById("form");
 let textfield = document.getElementById("textField");
-console.log(textfield);
+
+// gettting chat-box
+let chatBox = document.getElementById("chat-box");
 
 // working on form
 
@@ -15,4 +17,20 @@ form.addEventListener("submit", (e) => {
     return;
   }
   socket.emit("send-message", textfield.value);
+  createMessageBox(textfield.value, "right");
+  textfield.value = "";
 });
+
+// receive message
+
+socket.on("receive-message", (m) => {
+  console.log(m);
+  createMessageBox(m, "left");
+});
+
+function createMessageBox(content, direction) {
+  let messageDiv = document.createElement("div");
+  messageDiv.className = direction;
+  messageDiv.innerText = content;
+  chatBox.appendChild(messageDiv);
+}
