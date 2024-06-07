@@ -1,17 +1,16 @@
 const express = require("express");
-const socket = require("socket.io");
-const http = require("http");
 const app = express();
+const http = require("http");
 const server = http.createServer(app);
-const io = new socket.Server(server);
+
+// working on socket module
+const { socket } = require("./socket.js");
+// initializing socket
+socket(server);
 
 app.set("view engine", "ejs");
 
 app.use("/public", express.static("./public"));
-
-io.on("connection", (socket) => {
-  console.log(socket.id);
-});
 
 app.get("/", (req, res) => {
   res.render("index");
