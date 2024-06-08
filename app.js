@@ -83,4 +83,19 @@ app.get("/logout", (req, res) => {
   res.cookie("uid", "");
   res.redirect("/");
 });
+
+// getfrirnds
+app.get("/getfriends", (req, res) => {
+  let { uid } = req.cookies;
+  conn.query(
+    `select friends.friendID,users.username from friends join users on friends.friendID = users.id where userID =${uid} ;`,
+    (err, data) => {
+      if (err) {
+        console.log("err");
+        return;
+      }
+      res.render("friends", { data });
+    }
+  );
+});
 server.listen(8000);
