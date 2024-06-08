@@ -4,6 +4,8 @@ const { conn } = require("./db");
 // acquiring cookie-parser
 const cookieParser = require("cookie-parser");
 const app = express();
+// acquiring authentication
+const { auth } = require("./auth.js");
 const http = require("http");
 const server = http.createServer(app);
 
@@ -13,6 +15,8 @@ const { socket } = require("./socket.js");
 socket(server);
 // using cookie parser
 app.use(cookieParser());
+// using auth
+app.use(/^\/(?!login$|signup$|signin$|register$).*$/, auth);
 
 // setting view engine to ejs
 app.set("view engine", "ejs");
@@ -37,9 +41,15 @@ app.post("/signup", (req, res) => {
   const { username, email, password } = req.body;
   console.log(username, email, password);
   conn.query(
-    `insert into users(username,email,password) values('${username}','${email}','${password}')`
+    `insert into users(username,email,password) values('${username}','${email}','${password}')`,
+    (err) => {
+      if (err) {
+        res.send("email is already taken");
+        return;
+      }
+      res.redirect("/login");
+    }
   );
-  res.redirect("/login");
 });
 
 //provide login page
