@@ -77,4 +77,10 @@ app.post("/signin", (req, res) => {
     }
   );
 });
+
+// logout
+app.get("/logout", (req, res) => {
+  res.cookie("uid", "");
+  res.redirect("/");
+});
 server.listen(8000);

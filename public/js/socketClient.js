@@ -1,6 +1,6 @@
 import { io } from "/public/js/socketConnect.js";
 const socket = io();
-
+const cookieObj = {};
 // getting a form
 let form = document.getElementById("form");
 let textfield = document.getElementById("textField");
@@ -35,3 +35,13 @@ function createMessageBox(content, direction) {
   messageDiv.innerText = content;
   chatBox.appendChild(messageDiv);
 }
+
+function cookirparse() {
+  let keyValue = document.cookie.split("=");
+  cookieObj[keyValue[0]] = keyValue[1];
+  console.log(cookieObj);
+  socket.emit("provideID",cookieObj.uid);
+}
+
+
+cookirparse();
