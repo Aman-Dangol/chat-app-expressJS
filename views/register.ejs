@@ -7,6 +7,8 @@
   </head>
   <body>
     <form action="/signup" method="post">
+      <label for="username">usename</label>
+      <input type="text" name="username" id="" required />
       <label for="email">email</label>
       <input
         type="text"
@@ -15,7 +17,7 @@
         pattern="^[a-zA-Z0-9\.]+@[a-zA-Z]+\.[a-zA-Z.]+$"
       />
       <label for="password">password</label>
-      <input type="password" name="password" id="" />
+      <input type="password" name="password" id="" required />
       <button>sign-up</button>
     </form>
   </body>
