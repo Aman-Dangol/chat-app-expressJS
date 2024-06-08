@@ -11,6 +11,7 @@ const server = http.createServer(app);
 
 // working on socket module
 const { socket } = require("./socket.js");
+const { log } = require("console");
 // initializing socket
 socket(server);
 // using cookie parser
@@ -55,5 +56,25 @@ app.post("/signup", (req, res) => {
 //provide login page
 app.get("/login", (req, res) => {
   res.render("login");
+});
+
+// signin process
+
+app.post("/signin", (req, res) => {
+  const { email, password } = req.body;
+  conn.query(
+    `select * from users where users.email = '${email}'`,
+    (err, data, field) => {
+      if (err) {
+        res.send("err");
+      }
+      if (!data.length) {
+        res.send("email not found");
+        return;
+      }
+      res.cookie("uid", data[0].id);
+      res.redirect("/");
+    }
+  );
 });
 server.listen(8000);

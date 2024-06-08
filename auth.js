@@ -9,6 +9,7 @@ function auth(
     res.render("login");
     return;
   }
+  next();
 }
 
 module.exports.auth = auth;
