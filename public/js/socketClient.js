@@ -28,6 +28,7 @@ socket.on("receive-message", (m) => {
   createMessageBox(m, "left");
 });
 
+// create messagebox and displaying the message in the chat-box
 function createMessageBox(content, direction) {
   let messageDiv = document.createElement("div");
   messageDiv.className = direction;

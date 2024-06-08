@@ -16,4 +16,9 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// registerPage
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
 server.listen(8000);
