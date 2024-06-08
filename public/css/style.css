@@ -15,6 +15,12 @@ h1 {
   border: 2px solid navy;
   max-width: 70%;
 }
+/* chatr box header */
+
+#chat-box-header{
+  background-color: rgb(198, 198, 198);
+  text-align: center;
+}
 
 /* form */
 form {
@@ -33,4 +39,12 @@ form > input {
 .main {
   display: grid;
   grid-template-columns: 1fr 5fr;
+}
+
+/* modifying friend Div */
+
+.friend {
+  cursor: pointer;
+  padding: 4px;
+  text-align: left;
 }

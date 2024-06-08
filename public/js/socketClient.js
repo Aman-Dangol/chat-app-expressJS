@@ -1,5 +1,6 @@
-import { io } from "/public/js/socketConnect.js";
+import { io } from "./socketConnect.js";
 import { updateFriendList } from "./friendList.js";
+import { globals } from "./globals.js";
 const socket = io();
 const cookieObj = {};
 // getting a form
@@ -19,6 +20,7 @@ form.addEventListener("submit", (e) => {
     return;
   }
   socket.emit("send-message", textfield.value);
+  console.log(globals);
   createMessageBox(textfield.value, "right");
   textfield.value = "";
 });

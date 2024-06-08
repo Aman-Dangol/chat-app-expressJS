@@ -1,18 +1,20 @@
 const { Server } = require("socket.io");
 const { conn } = require("./db.js");
 
+
+
 // socket to work
 function intializeSocket(server) {
   const io = new Server(server);
   io.on("connection", (socket) => {
     // sending a message
     socket.on("send-message", (message) => {
+      console.log(socket);
       socket.broadcast.emit("receive-message", message);
     });
     // changing socketid
-
     socket.on("provideID", (id) => {
-      socket.id = id;
+      socket.customID = id;
     });
 
     // connecting to a friend/user
