@@ -7,18 +7,32 @@
     <link rel="stylesheet" href="/public/css/style.css" />
   </head>
   <body>
-    <h1>JUST CHAT</h1>
-    <!-- displaying received messages aka CHAT BOX -->
-    <section id="chat-box"></section>
+    <main>
+      <h1>JUST CHAT</h1>
+      <section class="main">
+        <section class="friendList">
+          <form id="friendConnect">
+            <input type="text" name="" id="friendID" placeholder="user id" />
+            <button>connect</button>
+          </form>
+          <section id="friendList"></section>
+        </section>
+        <!-- chat part -->
+        <section>
+          <!-- displaying received messages aka CHAT BOX -->
+          <section id="chat-box"></section>
 
-    <!-- sending a message -->
-    <section>
-      <form id="form">
-        <input type="text" id="textField" />
-        <button>send</button>
-      </form>
-    </section>
+          <!-- sending a message -->
+          <section>
+            <form id="form">
+              <input type="text" id="textField" />
+              <button>send</button>
+            </form>
+          </section>
+        </section>
+      </section>
+    </main>
   </body>
-  <!-- <script src="/public/js/socketConnect.js" type="module" defer></script> -->
   <script src="/public/js/socketClient.js" type="module"></script>
+  <script src="/public/js/friendList.js" type="module"></script>
 </html>
