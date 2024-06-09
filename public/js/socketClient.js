@@ -1,13 +1,19 @@
 import { io } from "./socketConnect.js";
 import { updateFriendList } from "./friendList.js";
 import { globals } from "./globals.js";
-const socket = io();
 const cookieObj = {};
+let socket;
 // getting a form
 let form = document.getElementById("form");
 let textfield = document.getElementById("textField");
 let connectForm = document.getElementById("friendConnect");
 
+// intializing socket
+function socketInit() {
+  socket = io();
+  cookieparse();
+}
+socketInit();
 // gettting chat-box
 let chatBox = document.getElementById("chat-box");
 
@@ -19,7 +25,10 @@ form.addEventListener("submit", (e) => {
     console.log("empty text");
     return;
   }
-  socket.emit("send-message", textfield.value);
+  socket.emit("send-message", {
+    message: textfield.value,
+    friendID: globals.receiverID,
+  });
   console.log(globals);
   createMessageBox(textfield.value, "right");
   textfield.value = "";
@@ -47,8 +56,6 @@ function cookieparse() {
   socket.emit("provideID", cookieObj.uid);
 }
 
-cookieparse();
-
 // connect with friend
 
 connectForm.addEventListener("submit", (e) => {
@@ -60,3 +67,7 @@ connectForm.addEventListener("submit", (e) => {
   });
   updateFriendList();
 });
+
+export function roomJoin(friendID) {
+  socket.emit("join-room", friendID);
+}

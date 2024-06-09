@@ -1,4 +1,5 @@
 import * as ajax from "https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js";
+import { roomJoin } from "./socketClient.js";
 import { globals } from "./globals.js";
 let friendList = document.getElementById("friendList");
 let chatHeader = document.getElementById("chat-box-header");
@@ -18,6 +19,8 @@ export async function updateFriendList() {
     friend.onclick = () => {
       chatHeader.innerText = friend.innerText;
       globals.receiverID = friend.id;
+      console.log(friend.id);
+      roomJoin(friend.id);
     };
   });
 }
