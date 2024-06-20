@@ -7,14 +7,11 @@ function intializeSocket(server) {
   io.on("connection", (socket) => {
     // sending a message
     socket.on("send-message", (msgDetails) => {
-      console.log(msgDetails);
       if (!msgDetails.friendID) {
         socket.broadcast.emit("receive-message", msgDetails.message);
         return;
       }
-      console.log(msgDetails);
       let room = getRoom(socket, msgDetails.friendID);
-      console.log("customr id ", socket.customID);
       conn.query(
         `insert into messages(senderID,receiverID,message) values(${socket.customID} , ${msgDetails.friendID} , '${msgDetails.message}')`,
         (err) => {
@@ -29,7 +26,6 @@ function intializeSocket(server) {
     // changing socketid
     socket.on("provideID", (id) => {
       socket.customID = id;
-      console.log(socket.customID);
     });
 
     // connecting to a friend/user
@@ -70,12 +66,8 @@ function intializeSocket(server) {
     });
     socket.on("join-room", (id) => {
       let room = "";
-      // console.log("your id is " + socket.customID);
-      // console.log("room join request", id);
       room = getRoom(socket, id);
       socket.join(room);
-      // console.log("joining room" + room);
-      console.log(socket.rooms);
     });
 
     socket.on("leave-room", (id) => {
@@ -83,8 +75,6 @@ function intializeSocket(server) {
         return;
       }
       socket.leave(getRoom(socket, id));
-      console.log("leaving room" + getRoom(socket, id));
-      console.log(socket.rooms);
     });
   });
 }
