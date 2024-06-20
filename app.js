@@ -84,7 +84,7 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-// getfrirnds
+// getfriends
 app.get("/getfriends", (req, res) => {
   let { uid } = req.cookies;
   conn.query(

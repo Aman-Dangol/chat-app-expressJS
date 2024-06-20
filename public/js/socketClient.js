@@ -12,24 +12,24 @@ let connectForm = document.getElementById("friendConnect");
 function socketInit() {
   socket = io();
   cookieparse();
+  console.log(cookieObj);
+  socket.emit("provideID", cookieObj.uid);
 }
 socketInit();
 // gettting chat-box
-let chatBox = document.getElementById("chat-box");
+let chatBox = document.getElementById("chat-box-body");
 
 // working on form
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   if (!textfield.value) {
-    console.log("empty text");
     return;
   }
   socket.emit("send-message", {
     message: textfield.value,
     friendID: globals.receiverID,
   });
-  console.log(globals);
   createMessageBox(textfield.value, "right");
   textfield.value = "";
 });
@@ -37,7 +37,6 @@ form.addEventListener("submit", (e) => {
 // receive message
 
 socket.on("receive-message", (m) => {
-  console.log(m);
   createMessageBox(m, "left");
 });
 
@@ -52,8 +51,6 @@ function createMessageBox(content, direction) {
 function cookieparse() {
   let keyValue = document.cookie.split("=");
   cookieObj[keyValue[0]] = keyValue[1];
-  console.log(cookieObj);
-  socket.emit("provideID", cookieObj.uid);
 }
 
 // connect with friend
@@ -70,4 +67,8 @@ connectForm.addEventListener("submit", (e) => {
 
 export function roomJoin(friendID) {
   socket.emit("join-room", friendID);
+}
+
+export function roomLeave(friendID) {
+  socket.emit("leave-room", friendID);
 }

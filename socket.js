@@ -12,12 +12,24 @@ function intializeSocket(server) {
         socket.broadcast.emit("receive-message", msgDetails.message);
         return;
       }
+      console.log(msgDetails);
       let room = getRoom(socket, msgDetails.friendID);
+      console.log("customr id ", socket.customID);
+      conn.query(
+        `insert into messages(senderID,receiverID,message) values(${socket.customID} , ${msgDetails.friendID} , '${msgDetails.message}')`,
+        (err) => {
+          if (err) {
+            console.log("err aayo");
+            return;
+          }
+        }
+      );
       socket.to(room).emit("receive-message", msgDetails.message);
     });
     // changing socketid
     socket.on("provideID", (id) => {
       socket.customID = id;
+      console.log(socket.customID);
     });
 
     // connecting to a friend/user
@@ -58,11 +70,20 @@ function intializeSocket(server) {
     });
     socket.on("join-room", (id) => {
       let room = "";
-      console.log("your id is " + socket.customID);
-      console.log("room join request", id);
+      // console.log("your id is " + socket.customID);
+      // console.log("room join request", id);
       room = getRoom(socket, id);
       socket.join(room);
-      console.log("joining room" + room);
+      // console.log("joining room" + room);
+      console.log(socket.rooms);
+    });
+
+    socket.on("leave-room", (id) => {
+      if (!id) {
+        return;
+      }
+      socket.leave(getRoom(socket, id));
+      console.log("leaving room" + getRoom(socket, id));
       console.log(socket.rooms);
     });
   });
