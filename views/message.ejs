@@ -1,0 +1,5 @@
+<% data.forEach(element => { %> <% if (uid != element.senderID) { %>
+<div class="friend"><%= element.senderID %> <%=element.message %></div>
+<% }else{ %>
+<div class="right"><%= element.senderID %> <%=element.message %></div>
+<% } %> <% }) %>
