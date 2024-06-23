@@ -16,7 +16,7 @@ function intializeSocket(server) {
         `insert into messages(senderID,receiverID,message) values(${socket.customID} , ${msgDetails.friendID} , '${msgDetails.message}')`,
         (err) => {
           if (err) {
-            console.log("err aayo");
+            console.log(err);
             return;
           }
         }
@@ -26,6 +26,7 @@ function intializeSocket(server) {
     // changing socketid
     socket.on("provideID", (id) => {
       socket.customID = id;
+      console.log(socket.customID);
     });
 
     // connecting to a friend/user

@@ -11,13 +11,18 @@ h1 {
 
 #chat-box {
   margin: 0 auto;
-  height: 300px;
   border: 2px solid navy;
   max-width: 70%;
 }
+/* chat body */
+
+#chat-box-body {
+  max-height: 350px;
+  overflow-y: scroll;
+}
 /* chatr box header */
 
-#chat-box-header{
+#chat-box-header {
   background-color: rgb(198, 198, 198);
   text-align: center;
 }

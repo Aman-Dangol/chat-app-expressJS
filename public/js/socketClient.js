@@ -46,6 +46,7 @@ function createMessageBox(content, direction) {
   messageDiv.className = direction;
   messageDiv.innerText = content;
   chatBox.appendChild(messageDiv);
+  chatBox.scroll(0, chatBox.scrollHeight);
 }
 
 function cookieparse() {

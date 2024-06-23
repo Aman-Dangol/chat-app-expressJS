@@ -4,6 +4,7 @@ const conn = mysql.createConnection({
   password: "root",
   host: "localhost",
   database: "chat",
+  charset: "utf8mb4",
 });
 
 module.exports.conn = conn;

@@ -109,8 +109,10 @@ app.post("/message", (req, res) => {
         res.send("err");
         return;
       }
-      res.send(data);
+      res.render("message", { data, uid });
     }
+
+    
   );
 });
 server.listen(8000);
