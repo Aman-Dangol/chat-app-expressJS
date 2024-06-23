@@ -21,12 +21,16 @@ function intializeSocket(server) {
           }
         }
       );
-      socket.to(room).emit("receive-message", {msg: msgDetails.message, id: socket.customID});
+      socket
+        .to(room)
+        .emit("receive-message", {
+          msg: msgDetails.message,
+          id: socket.customID,
+        });
     });
     // changing socketid
     socket.on("provideID", (id) => {
       socket.customID = id;
-      console.log(socket.customID);
     });
 
     // connecting to a friend/user
@@ -37,14 +41,13 @@ function intializeSocket(server) {
         `select * from users where users.id =${friendID}`,
         (err, data) => {
           if (err) {
-            console.log("err");
+            console.log("err when adding a friend");
             return;
           }
           if (data.length == 0) {
             console.log("this user doesn't exist");
             return;
           }
-          console.log("user exists");
           // adding user to friend
           conn.query(
             `insert into friends(userID,friendID) values(${userID},${friendID})`,
@@ -60,6 +63,11 @@ function intializeSocket(server) {
             }
           );
           console.log("friend added");
+          io.sockets.sockets.forEach((socket) => {
+            if (socket.customID == friendID) {
+              socket.emit("notification");
+            }
+          });
         }
       );
 

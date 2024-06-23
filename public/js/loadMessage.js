@@ -6,7 +6,6 @@ export const loadMessages = async (fID) => {
     method: "POST",
     data: { friendID: fID },
     success: (data) => {
-      console.log("data", data);
       output = data;
     },
     error: () => {

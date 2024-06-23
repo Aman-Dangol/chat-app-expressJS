@@ -12,7 +12,6 @@ let connectForm = document.getElementById("friendConnect");
 function socketInit() {
   socket = io();
   cookieparse();
-  console.log(cookieObj);
   socket.emit("provideID", cookieObj.uid);
 }
 socketInit();
@@ -44,8 +43,18 @@ socket.on("receive-message", (m) => {
 function createMessageBox(content, id, direction) {
   // console.log(content, id, direction);
   let messageDiv = document.createElement("div");
-  messageDiv.className = direction;
-  messageDiv.innerText = id + " " + content;
+  let contentDiv = document.createElement("div");
+  let userDiv = document.createElement("div");
+  userDiv.innerText = id;
+  contentDiv.innerText = content;
+
+
+  messageDiv.appendChild(userDiv);
+  messageDiv.appendChild(contentDiv);
+
+
+  messageDiv.className = direction + " messageBox";
+
   chatBox.appendChild(messageDiv);
   chatBox.scroll(0, chatBox.scrollHeight);
 }
@@ -67,6 +76,11 @@ connectForm.addEventListener("submit", (e) => {
   updateFriendList();
 });
 
+
+socket.on("notification",()=>{
+  console.log("notification");
+  updateFriendList();
+})
 export function roomJoin(friendID) {
   socket.emit("join-room", friendID);
 }

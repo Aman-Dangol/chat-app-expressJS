@@ -2,12 +2,15 @@ h1 {
   text-align: center;
 }
 .right {
+  clear: both;
   text-align: right;
+  float: right;
 }
 
-/* .left {
+.left {
+  clear: both;
   text-align: left;
-} */
+}
 
 #chat-box {
   margin: 0 auto;
@@ -17,8 +20,10 @@ h1 {
 /* chat body */
 
 #chat-box-body {
+  height: 350px;
   max-height: 350px;
   overflow-y: scroll;
+  padding: 2px;
 }
 /* chatr box header */
 
@@ -29,9 +34,7 @@ h1 {
 
 /* form */
 form {
-  max-width: 70%;
-  background-color: red;
-  margin: 0 auto;
+  max-width: 60%;
   display: flex;
 }
 form > input {
@@ -43,7 +46,7 @@ form > input {
 
 .main {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 20% 70%;
 }
 
 /* modifying friend Div */
@@ -52,4 +55,23 @@ form > input {
   cursor: pointer;
   padding: 4px;
   text-align: left;
+}
+
+.messageBox {
+  width: 40%;
+  max-width: 40%;
+  border-radius: 5px;
+  background-color: gainsboro;
+  margin-bottom: 8px;
+}
+
+#friendConnect > button {
+  cursor: pointer;
+}
+#form {
+  max-width: 70%;
+  margin: 0 auto;
+}
+#chat-part {
+  margin: 0;
 }
