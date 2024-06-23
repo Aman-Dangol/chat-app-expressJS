@@ -30,21 +30,22 @@ form.addEventListener("submit", (e) => {
     message: textfield.value,
     friendID: globals.receiverID,
   });
-  createMessageBox(textfield.value, "right");
+  createMessageBox(textfield.value, cookieObj.uid, "right");
   textfield.value = "";
 });
 
 // receive message
 
 socket.on("receive-message", (m) => {
-  createMessageBox(m, "left");
+  createMessageBox(m.msg, m.id, "left");
 });
 
 // create messagebox and displaying the message in the chat-box
-function createMessageBox(content, direction) {
+function createMessageBox(content, id, direction) {
+  // console.log(content, id, direction);
   let messageDiv = document.createElement("div");
   messageDiv.className = direction;
-  messageDiv.innerText = content;
+  messageDiv.innerText = id + " " + content;
   chatBox.appendChild(messageDiv);
   chatBox.scroll(0, chatBox.scrollHeight);
 }

@@ -21,7 +21,7 @@ function intializeSocket(server) {
           }
         }
       );
-      socket.to(room).emit("receive-message", msgDetails.message);
+      socket.to(room).emit("receive-message", {msg: msgDetails.message, id: socket.customID});
     });
     // changing socketid
     socket.on("provideID", (id) => {
