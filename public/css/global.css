@@ -1,0 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins");
+
+:root {
+  --secondary-color: navy;
+  --high-light-color: gainsboro;
+}
+* {
+  font-family: Poppins, Times, serif;
+}

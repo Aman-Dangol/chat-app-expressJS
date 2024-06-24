@@ -13,7 +13,8 @@ function intializeSocket(server) {
       }
       let room = getRoom(socket, msgDetails.friendID);
       conn.query(
-        `insert into messages(senderID,receiverID,message) values(${socket.customID} , ${msgDetails.friendID} , '${msgDetails.message}')`,
+        `insert into messages(senderID,receiverID,message) values(?,?,?)`,
+        [socket.customID, msgDetails.friendID, msgDetails.message],
         (err) => {
           if (err) {
             console.log(err);
@@ -21,12 +22,10 @@ function intializeSocket(server) {
           }
         }
       );
-      socket
-        .to(room)
-        .emit("receive-message", {
-          msg: msgDetails.message,
-          id: socket.customID,
-        });
+      socket.to(room).emit("receive-message", {
+        msg: msgDetails.message,
+        id: socket.customID,
+      });
     });
     // changing socketid
     socket.on("provideID", (id) => {

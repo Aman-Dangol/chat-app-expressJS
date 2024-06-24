@@ -1,0 +1,59 @@
+@import url("/public/css/global.css");
+*:not(h1){
+  font-size: 16px;
+  font-weight: 100;
+}
+h1 {
+  text-align: center;
+  color: var(--secondary-color);
+}
+
+form {
+  background-color: var(--high-light-color);
+  border-radius: 4px;
+  padding: 5%;
+  width: fit-content;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 5fr;
+  column-gap: 2rem;
+  row-gap: 20px;
+}
+
+
+form > input {
+  width: 100%;
+  outline: none;
+  border: none;
+}
+
+form > button {
+  padding: 0;
+  grid-column: span 2;
+  margin: 0 auto;
+  padding: 2%;
+  cursor: pointer;
+  border: none;
+  background-color: whitesmoke;
+}
+
+form > button:hover {
+  background-color: var(--secondary-color);
+  color: var(--high-light-color);
+}
+
+a {
+  text-decoration: none;
+  grid-column: span 2;
+  margin: 0 auto;
+  padding: 2%;
+  cursor: pointer;
+  border: none;
+  color: black;
+  background-color: whitesmoke;
+}
+
+a:hover{
+  background-color: var(--secondary-color);
+  color: var(--high-light-color);
+}

@@ -16,13 +16,13 @@ const { log } = require("console");
 socket(server);
 // using cookie parser
 app.use(cookieParser());
+app.use("/public", express.static("./public"));
+
 // using auth
 app.use(/^\/(?!login$|signup$|signin$|register$).*$/, auth);
 
 // setting view engine to ejs
 app.set("view engine", "ejs");
-
-app.use("/public", express.static("./public"));
 
 // getting body parameters
 app.use(express.urlencoded({ extended: false }));
@@ -72,6 +72,11 @@ app.post("/signin", (req, res) => {
         res.send("email not found");
         return;
       }
+      if (data[0].password != password) {
+        res.send("email or psaswors incorrect");
+        return;
+      }
+
       res.cookie("uid", data[0].id);
       res.redirect("/");
     }
@@ -111,10 +116,7 @@ app.post("/message", (req, res) => {
       }
       res.render("message", { data, uid });
     }
-
-    
   );
 });
-
 
 server.listen(8000);
