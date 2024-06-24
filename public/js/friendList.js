@@ -38,4 +38,6 @@ export async function updateFriendList() {
   });
 }
 
+
+
 updateFriendList();
