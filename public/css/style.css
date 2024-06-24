@@ -60,7 +60,8 @@ form > input {
 }
 
 .messageBox {
-  width: 40%;
+  width: fit-content;
+  padding: 0px 5px;
   max-width: 40%;
   border-radius: 5px;
   background-color: gainsboro;
@@ -76,4 +77,11 @@ form > input {
 }
 #chat-part {
   margin: 0;
+}
+
+.messageBox>:last-child{
+  text-align: left;
+  height: fit-content;
+  word-wrap: break-word;
+  
 }
