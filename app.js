@@ -8,6 +8,9 @@ const app = express();
 const { auth } = require("./auth.js");
 const http = require("http");
 const server = http.createServer(app);
+// importing expiry date calculator
+
+const { expDate } = require("./getExpirydate.js");
 
 // working on socket module
 const { socket } = require("./socket.js");
@@ -77,7 +80,9 @@ app.post("/signin", (req, res) => {
         return;
       }
 
-      res.cookie("uid", data[0].id);
+      res.cookie("uid", data[0].id, {
+        expires: expDate(),
+      });
       res.redirect("/");
     }
   );
