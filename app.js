@@ -72,6 +72,11 @@ app.post("/signin", (req, res) => {
         res.send("email not found");
         return;
       }
+      if (data[0].password != password) {
+        res.send("email or psaswors incorrect");
+        return;
+      }
+
       res.cookie("uid", data[0].id);
       res.redirect("/");
     }
