@@ -17,20 +17,26 @@ h1 {
 #chat-box {
   margin: 0 auto;
   border: 2px solid navy;
-  max-width: 70%;
+  border-radius: 4px;
+  max-width: 100%;
+
+  height: 80vh;
+  max-height: 80vh;
+  overflow: hidden;
 }
 /* chat body */
 
 #chat-box-body {
-  height: 350px;
-  max-height: 350px;
-  overflow-y: scroll;
   padding: 2px;
+  height:  calc(100% - 2rem);
+  max-height: calc(100% - 2rem);
+  overflow-y: scroll;
 }
 /* chatr box header */
 
 #chat-box-header {
   background-color: rgb(198, 198, 198);
+  height: 2rem;
   text-align: center;
 }
 
@@ -48,7 +54,8 @@ form > input {
 
 .main {
   display: grid;
-  grid-template-columns: 20% 70%;
+  grid-template-columns: 2fr 7fr;
+  column-gap: 10px
 }
 
 /* modifying friend Div */
@@ -72,16 +79,19 @@ form > input {
   cursor: pointer;
 }
 #form {
-  max-width: 70%;
   margin: 0 auto;
+  max-width: 100%;
+  background-color: red;
 }
 #chat-part {
   margin: 0;
 }
 
-.messageBox>:last-child{
+.messageBox > :last-child {
   text-align: left;
   height: fit-content;
   word-wrap: break-word;
-  
+}
+.friendList {
+  width: fit-content;
 }
