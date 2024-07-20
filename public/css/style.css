@@ -8,6 +8,10 @@ h1 {
   text-align: right;
   float: right;
 }
+body,
+html {
+  margin: 0;
+}
 
 .left {
   clear: both;
@@ -19,8 +23,7 @@ h1 {
   border: 2px solid navy;
   border-radius: 4px;
   max-width: 100%;
-
-  height: 80vh;
+  height: calc(80vh - 2px);
   max-height: 80vh;
   overflow: hidden;
 }
@@ -28,7 +31,7 @@ h1 {
 
 #chat-box-body {
   padding: 2px;
-  height:  calc(100% - 2rem);
+  height: calc(100% - 2rem);
   max-height: calc(100% - 2rem);
   overflow-y: scroll;
 }
@@ -55,7 +58,7 @@ form > input {
 .main {
   display: grid;
   grid-template-columns: 2fr 7fr;
-  column-gap: 10px
+  column-gap: 10px;
 }
 
 /* modifying friend Div */
@@ -74,7 +77,9 @@ form > input {
   background-color: gainsboro;
   margin-bottom: 8px;
 }
-
+#friendConnect{
+  padding-left: 2px;
+}
 #friendConnect > button {
   cursor: pointer;
 }
@@ -94,4 +99,19 @@ form > input {
 }
 .friendList {
   width: fit-content;
+  position: relative;
+}
+
+.btn {
+  background-color: red;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+  width: 80%;
+  bottom: 0;
+  margin-bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
 }
