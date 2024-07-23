@@ -8,6 +8,10 @@ h1 {
   text-align: right;
   float: right;
 }
+body,
+html {
+  margin: 0;
+}
 
 .left {
   clear: both;
@@ -17,20 +21,26 @@ h1 {
 #chat-box {
   margin: 0 auto;
   border: 2px solid navy;
-  max-width: 70%;
+  border-radius: 4px;
+  max-width: calc(100%-20px);
+  margin-right: 20px;
+  height: calc(80vh - 2px);
+  max-height: 80vh;
+  overflow: hidden;
 }
 /* chat body */
 
 #chat-box-body {
-  height: 350px;
-  max-height: 350px;
-  overflow-y: scroll;
   padding: 2px;
+  height: calc(100% - 2rem);
+  max-height: calc(100% - 2rem);
+  overflow-y: scroll;
 }
 /* chatr box header */
 
 #chat-box-header {
   background-color: rgb(198, 198, 198);
+  height: 2rem;
   text-align: center;
 }
 
@@ -48,7 +58,8 @@ form > input {
 
 .main {
   display: grid;
-  grid-template-columns: 20% 70%;
+  grid-template-columns: 2fr 7fr;
+  column-gap: 10px;
 }
 
 /* modifying friend Div */
@@ -67,21 +78,41 @@ form > input {
   background-color: gainsboro;
   margin-bottom: 8px;
 }
-
+#friendConnect {
+  padding-left: 2px;
+}
 #friendConnect > button {
   cursor: pointer;
 }
 #form {
-  max-width: 70%;
   margin: 0 auto;
+  max-width: 100%;
+  margin-right: 20px;
 }
 #chat-part {
   margin: 0;
 }
 
-.messageBox>:last-child{
+.messageBox > :last-child {
   text-align: left;
   height: fit-content;
   word-wrap: break-word;
-  
+}
+.friendList {
+  width: fit-content;
+  position: relative;
+}
+
+.btn {
+  background-color: red;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+  width: 80%;
+  bottom: 0;
+  margin-bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
 }

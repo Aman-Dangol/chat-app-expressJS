@@ -1,20 +1,44 @@
 const { Server } = require("socket.io");
 const { conn } = require("./db.js");
-
+const fs = require("fs");
+const path = require("path");
+const formidable = require("formidable");
 // socket to work
 function intializeSocket(server) {
-  const io = new Server(server);
+  const io = new Server(server, {
+    maxHttpBufferSize: 1e8,
+  });
   io.on("connection", (socket) => {
     // sending a message
     socket.on("send-message", (msgDetails) => {
+      let fname = msgDetails.message;
+      if (msgDetails.msgType == "file") {
+        console.log("here");
+        console.log(fname);
+        fname = fileCheck("./public/uploads/", msgDetails.name);
+        fs.writeFile(`./public/uploads/${fname}`, msgDetails.message, (err) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          console.log("success");
+          return;
+        });
+      }
       if (!msgDetails.friendID) {
-        socket.broadcast.emit("receive-message", msgDetails.message);
+        socket.broadcast.emit("receive-message", msgDetails.name);
         return;
       }
       let room = getRoom(socket, msgDetails.friendID);
+      console.log(fname);
       conn.query(
-        `insert into messages(senderID,receiverID,message) values(?,?,?)`,
-        [socket.customID, msgDetails.friendID, msgDetails.message],
+        `insert into messages(senderID,receiverID,message,messageType) values(?,?,?,?)`,
+        [
+          socket.customID,
+          msgDetails.friendID,
+          "/public/uploads/" + fname,
+          msgDetails.msgType,
+        ],
         (err) => {
           if (err) {
             console.log(err);
@@ -93,5 +117,18 @@ function getRoom(socket, friendID) {
   }
   return "" + friendID + socket.customID;
 }
+
+const fileCheck = (dir, filename, counter = 0) => {
+  let parsedfile = path.parse(filename);
+  let { name, ext } = parsedfile;
+  counter = parseInt(counter);
+
+  // if counter is 0 dont concatenate 0 else concatenate the number
+  let newFileName = name + (counter == 0 ? "" : counter) + ext;
+  if (fs.existsSync(`${dir}/${newFileName}`)) {
+    return fileCheck(dir, filename, ++counter);
+  }
+  return newFileName;
+};
 
 module.exports.socket = intializeSocket;

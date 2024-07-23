@@ -16,6 +16,7 @@
             <button>connect</button>
           </form>
           <section id="friendList"></section>
+          <a href="/logout" class="btn">Logout</a>
         </section>
         <!-- chat part -->
         <section id="chat-part">
@@ -24,11 +25,10 @@
             <div id="chat-box-header" id="">Global Chat</div>
             <div id="chat-box-body"></div>
           </section>
-
           <!-- sending a message -->
           <section>
-            <form id="form">
-              <input type="text" id="textField" autocomplete="off" />
+            <form id="form" enctype="multipart/form-data">
+              <input type="file" id="textField" autocomplete="off" />
               <button>send</button>
             </form>
           </section>
