@@ -23,12 +23,24 @@ let chatBox = document.getElementById("chat-box-body");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   if (!textfield.value) {
+    alert("hello");
     return;
   }
-  socket.emit("send-message", {
-    message: textfield.value,
-    friendID: globals.receiverID,
-  });
+  console.log(textfield.type);
+  if (textfield.type == "file") {
+    console.log(textfield.files[0]);
+    socket.emit("send-message", {
+      message: textfield.files[0],
+      name: textfield.files[0].name,
+      msgType: "file",
+      friendID: globals.receiverID,
+    });
+  } else {
+    socket.emit("send-message", {
+      message: textfield.value,
+      friendID: globals.receiverID,
+    });
+  }
   createMessageBox(textfield.value, cookieObj.uid, "right");
   textfield.value = "";
 });
@@ -48,10 +60,8 @@ function createMessageBox(content, id, direction) {
   userDiv.innerText = id;
   contentDiv.innerText = content;
 
-
   messageDiv.appendChild(userDiv);
   messageDiv.appendChild(contentDiv);
-
 
   messageDiv.className = direction + " messageBox";
 
@@ -76,11 +86,10 @@ connectForm.addEventListener("submit", (e) => {
   updateFriendList();
 });
 
-
-socket.on("notification",()=>{
+socket.on("notification", () => {
   console.log("notification");
   updateFriendList();
-})
+});
 export function roomJoin(friendID) {
   socket.emit("join-room", friendID);
 }
