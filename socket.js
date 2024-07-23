@@ -9,13 +9,13 @@ function intializeSocket(server) {
     maxHttpBufferSize: 1e8,
   });
   io.on("connection", (socket) => {
-    console.log("connection");
     // sending a message
     socket.on("send-message", (msgDetails) => {
-      console.log(msgDetails);
+      let fname = msgDetails.message;
       if (msgDetails.msgType == "file") {
         console.log("here");
-        let fname = fileCheck("./public/uploads/", msgDetails.name);
+        console.log(fname);
+        fname = fileCheck("./public/uploads/", msgDetails.name);
         fs.writeFile(`./public/uploads/${fname}`, msgDetails.message, (err) => {
           if (err) {
             console.log(err);
@@ -24,16 +24,21 @@ function intializeSocket(server) {
           console.log("success");
           return;
         });
-        return;
       }
       if (!msgDetails.friendID) {
-        socket.broadcast.emit("receive-message", msgDetails.message);
+        socket.broadcast.emit("receive-message", msgDetails.name);
         return;
       }
       let room = getRoom(socket, msgDetails.friendID);
+      console.log(fname);
       conn.query(
-        `insert into messages(senderID,receiverID,message) values(?,?,?)`,
-        [socket.customID, msgDetails.friendID, msgDetails.message],
+        `insert into messages(senderID,receiverID,message,messageType) values(?,?,?,?)`,
+        [
+          socket.customID,
+          msgDetails.friendID,
+          "/public/uploads/" + fname,
+          msgDetails.msgType,
+        ],
         (err) => {
           if (err) {
             console.log(err);
