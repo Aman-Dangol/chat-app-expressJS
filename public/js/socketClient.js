@@ -27,7 +27,6 @@ form.addEventListener("submit", (e) => {
   }
   console.log(textfield.type);
   if (textfield.type == "file") {
-    console.log(textfield.files[0]);
     socket.emit("send-message", {
       message: textfield.files[0],
       name: textfield.files[0].name,
@@ -41,24 +40,28 @@ form.addEventListener("submit", (e) => {
       friendID: globals.receiverID,
     });
   }
-  createMessageBox(textfield.value, cookieObj.uid, "right");
+  if (textfield.type == "text") {
+    createMessageBox(textfield, cookieObj.uid, "right");
+  }
+
   textfield.value = "";
 });
 
 // receive message
 
 socket.on("receive-message", (m) => {
-  createMessageBox(m.msg, m.id, "left");
+  createMessageBox(m.msg, m, m.id, "left");
 });
 
 // create messagebox and displaying the message in the chat-box
 function createMessageBox(content, id, direction) {
   // console.log(content, id, direction);
+
   let messageDiv = document.createElement("div");
   let contentDiv = document.createElement("div");
   let userDiv = document.createElement("div");
   userDiv.innerText = id;
-  contentDiv.innerText = content;
+  contentDiv.innerText = content.value;
 
   messageDiv.appendChild(userDiv);
   messageDiv.appendChild(contentDiv);
@@ -97,3 +100,7 @@ export function roomJoin(friendID) {
 export function roomLeave(friendID) {
   socket.emit("leave-room", friendID);
 }
+
+socket.on("reload", () => {
+  document.getElementById(globals.receiverID).click();
+});

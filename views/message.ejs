@@ -1,11 +1,19 @@
 <% data.forEach(element => { %> <% if (uid != element.senderID) { %>
 <div class="left messageBox">
   <div><%= element.senderID %></div>
-  <div><%=element.message %></div>
+  <% if (element.messageType == "text") { %>
+  <div><%= element.message %></div>
+  <% } else { %>
+  <div><img src="<%= element.message %>" alt="image" /></div>
+  <% } %>
 </div>
-<% }else{ %>
+<% } else { %>
 <div class="right messageBox">
   <div><%= element.senderID %></div>
-  <div><%=element.message %></div>
+  <% if (element.messageType == "text") { %>
+  <div><%= element.message %></div>
+  <% } else { %>
+  <div><img src="<%= element.message %>" alt="image" /></div>
+  <% } %>
 </div>
 <% } %> <% }) %>

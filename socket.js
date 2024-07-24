@@ -24,6 +24,7 @@ function intializeSocket(server) {
           return;
         });
       }
+      io.to(socket.id).emit('reload');
       if (!msgDetails.friendID) {
         socket.broadcast.emit("receive-message", msgDetails.name);
         return;
