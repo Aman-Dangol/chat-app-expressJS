@@ -45,6 +45,7 @@ form.addEventListener("submit", (e) => {
   }
 
   textfield.value = "";
+  textfield.type = "text";
 });
 
 // receive message
@@ -70,7 +71,7 @@ function createMessageBox(content, id, direction) {
 
   chatBox.appendChild(messageDiv);
   chatBox.scroll(0, chatBox.scrollHeight);
-  console.log("hree",chatBox.scrollHeight);
+  console.log("hree", chatBox.scrollHeight);
 }
 
 function cookieparse() {
