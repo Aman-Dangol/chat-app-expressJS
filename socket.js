@@ -12,16 +12,15 @@ function intializeSocket(server) {
     // sending a message
     socket.on("send-message", (msgDetails) => {
       let fname = msgDetails.message;
+      let path = "";
       if (msgDetails.msgType == "file") {
-        console.log("here");
-        console.log(fname);
+        path = "/public/uploads/";
         fname = fileCheck("./public/uploads/", msgDetails.name);
         fs.writeFile(`./public/uploads/${fname}`, msgDetails.message, (err) => {
           if (err) {
-            console.log(err);
+            console.log("error when writing the file in the directory");
             return;
           }
-          console.log("success");
           return;
         });
       }
@@ -30,13 +29,12 @@ function intializeSocket(server) {
         return;
       }
       let room = getRoom(socket, msgDetails.friendID);
-      console.log(fname);
       conn.query(
         `insert into messages(senderID,receiverID,message,messageType) values(?,?,?,?)`,
         [
           socket.customID,
           msgDetails.friendID,
-          "/public/uploads/" + fname,
+          path + fname,
           msgDetails.msgType,
         ],
         (err) => {

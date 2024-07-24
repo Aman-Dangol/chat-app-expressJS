@@ -37,6 +37,7 @@ form.addEventListener("submit", (e) => {
   } else {
     socket.emit("send-message", {
       message: textfield.value,
+      msgType: "text",
       friendID: globals.receiverID,
     });
   }
