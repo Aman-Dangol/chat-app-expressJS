@@ -23,7 +23,6 @@ let chatBox = document.getElementById("chat-box-body");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   if (!textfield.value) {
-    alert("hello");
     return;
   }
   console.log(textfield.type);

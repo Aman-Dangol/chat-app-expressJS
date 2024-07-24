@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Just a chat App</title>
     <link rel="stylesheet" href="/public/css/style.css" />
   </head>
   <body>
@@ -28,8 +28,9 @@
           <!-- sending a message -->
           <section>
             <form id="form" enctype="multipart/form-data">
+              <button type="button" id="changeButton">text</button>
               <input type="file" id="textField" autocomplete="off" />
-              <button>send</button>
+              <button type="submit">send</button>
             </form>
           </section>
         </section>
@@ -38,4 +39,5 @@
   </body>
   <script src="/public/js/socketClient.js" type="module"></script>
   <script src="/public/js/friendList.js" type="module"></script>
+  <script src="/public/js/change.js" type="module"></script>
 </html>
