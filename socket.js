@@ -10,6 +10,7 @@ function intializeSocket(server) {
   });
   io.on("connection", (socket) => {
     // sending a message
+    console.log("connecton");
     socket.on("send-message", (msgDetails) => {
       let fname = msgDetails.message;
       let path = "";
@@ -21,10 +22,9 @@ function intializeSocket(server) {
             console.log("error when writing the file in the directory");
             return;
           }
-          return;
         });
+        io.to(socket.id).emit("reload");
       }
-      io.to(socket.id).emit('reload');
       if (!msgDetails.friendID) {
         socket.broadcast.emit("receive-message", msgDetails.name);
         return;

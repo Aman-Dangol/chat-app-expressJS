@@ -16,9 +16,6 @@ export async function updateFriendList() {
   let friends = document.querySelectorAll(".friend");
   friends.forEach((friend, index) => {
     friend.onclick = async () => {
-      // if (chatHeader.innerText == friend.innerText) {
-      //   return;
-      // }
       // leaving preivious room
       roomLeave(globals.receiverID);
       chatBox.innerHTML = " ";
@@ -26,8 +23,11 @@ export async function updateFriendList() {
       globals.receiverID = friend.id;
       let x = await loadMessages(friend.id);
       chatBox.innerHTML = x;
-      chatBox.scroll(0, chatBox.scrollHeight);
-      console.log(globals.receiverID);
+      setTimeout(async () => {
+        chatBox.scroll(0, chatBox.scrollHeight);
+      }, 10);
+      console.log(chatBox.scrollHeight);
+
       roomJoin(friend.id);
     };
     if (index == 0) {
