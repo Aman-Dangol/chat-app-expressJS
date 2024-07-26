@@ -1,18 +1,19 @@
 @import url("/public/css/global.css");
 
+p,
 h1 {
   text-align: center;
 }
+
 .right {
   clear: both;
   text-align: right;
   float: right;
 }
-body,
-html {
-  margin: 0;
+html,
+body {
+  height: 100%;
 }
-
 .left {
   clear: both;
   text-align: left;
@@ -55,8 +56,12 @@ form > input {
 }
 
 /* gridding */
+main {
+  height: 100vh;
+}
 
 .main {
+  min-height: 100% - 80px;
   display: grid;
   grid-template-columns: 2fr 7fr;
   column-gap: 10px;
@@ -85,7 +90,7 @@ form > input {
   cursor: pointer;
 }
 #form {
-  margin: 0 auto;
+  margin: 5px auto;
   max-width: 100%;
   margin-right: 20px;
 }

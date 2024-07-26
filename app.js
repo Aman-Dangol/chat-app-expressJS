@@ -31,7 +31,18 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  res.render("index");
+  let { uid } = req.cookies;
+  console.log("main", uid);
+  conn.query(
+    `select * from users where users.id =${uid}`,
+    (err, data, field) => {
+      if (err) {
+        console.log("error in index rendering");
+        return;
+      }
+      res.render("index", { user: data[0].username });
+    }
+  );
 });
 
 // provide register Page

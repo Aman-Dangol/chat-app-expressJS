@@ -53,6 +53,7 @@ function intializeSocket(server) {
     // changing socketid
     socket.on("provideID", (id) => {
       socket.customID = id;
+      console.log(socket.customID);
     });
 
     // connecting to a friend/user

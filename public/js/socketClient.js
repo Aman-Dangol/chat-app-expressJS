@@ -12,6 +12,7 @@ let connectForm = document.getElementById("friendConnect");
 function socketInit() {
   socket = io();
   cookieparse();
+  console.log(cookieObj);
   socket.emit("provideID", cookieObj.uid);
 }
 socketInit();
@@ -75,8 +76,14 @@ function createMessageBox(content, id, direction) {
 }
 
 function cookieparse() {
-  let keyValue = document.cookie.split("=");
-  cookieObj[keyValue[0]] = keyValue[1];
+  console.log(document.cookie);
+  let cookies = document.cookie.split("; ");
+  cookies.forEach((cookie) => {
+    let keyValue = cookie.split("=");
+    console.log(keyValue);
+    cookieObj[keyValue[0]] = keyValue[1];
+    console.log(cookieObj);
+  });
 }
 
 // connect with friend

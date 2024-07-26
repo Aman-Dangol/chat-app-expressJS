@@ -22,12 +22,13 @@ export async function updateFriendList() {
       chatHeader.innerText = friend.innerText;
       globals.receiverID = friend.id;
       let x = await loadMessages(friend.id);
+      chatBox.style.visibility = "hidden";
       chatBox.innerHTML = x;
-      setTimeout(async () => {
+      setTimeout(() => {
         chatBox.scroll(0, chatBox.scrollHeight);
-      }, 10);
+        chatBox.style.visibility = "visible";
+      }, 80);
       console.log(chatBox.scrollHeight);
-
       roomJoin(friend.id);
     };
     if (index == 0) {
