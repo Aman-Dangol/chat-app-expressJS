@@ -27,15 +27,13 @@ export async function updateFriendList() {
       setTimeout(() => {
         chatBox.scroll(0, chatBox.scrollHeight);
         chatBox.style.visibility = "visible";
-      }, 80);
+      }, 40);
       console.log(chatBox.scrollHeight);
       roomJoin(friend.id);
     };
-    if (index == 0) {
-      globals.receiverID = friend.id;
-      friend.click();
-      console.log("first contact of friend", friend.id);
-    }
+
+    globals.receiverID = friends[0].id;
+    friends[0].click();
   });
 }
 

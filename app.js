@@ -124,7 +124,7 @@ app.post("/message", (req, res) => {
   let { uid } = req.cookies;
   let { friendID } = req.body;
   conn.query(
-    `select * from messages where senderID in (${uid},${friendID}) and receiverID in (${uid},${friendID}) order by time asc`,
+    `select * from messages where senderID in (${uid},${friendID}) and receiverID in (${uid},${friendID}) order by time desc limit 25`,
     (err, data) => {
       if (err) {
         res.send("err");

@@ -42,7 +42,7 @@ form.addEventListener("submit", (e) => {
     });
   }
   if (textfield.type == "text") {
-    createMessageBox(textfield, cookieObj.uid, "right");
+    createMessageBox(textfield.value, cookieObj.uid, "right");
   }
 
   textfield.value = "";
@@ -52,7 +52,8 @@ form.addEventListener("submit", (e) => {
 // receive message
 
 socket.on("receive-message", (m) => {
-  createMessageBox(m.msg, m, m.id, "left");
+  createMessageBox(m.msg, m.id, "left");
+  reload();
 });
 
 // create messagebox and displaying the message in the chat-box
@@ -63,7 +64,7 @@ function createMessageBox(content, id, direction) {
   let contentDiv = document.createElement("div");
   let userDiv = document.createElement("div");
   userDiv.innerText = id;
-  contentDiv.innerText = content.value;
+  contentDiv.innerText = content;
 
   messageDiv.appendChild(userDiv);
   messageDiv.appendChild(contentDiv);
@@ -110,6 +111,8 @@ export function roomLeave(friendID) {
   socket.emit("leave-room", friendID);
 }
 
-socket.on("reload", () => {
+socket.on("reload", reload);
+
+function reload() {
   document.getElementById(globals.receiverID).click();
-});
+}
